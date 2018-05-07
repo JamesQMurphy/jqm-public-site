@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PublicSite.Models;
+using JamesQMurphy.PublicSite.Models;
 
-namespace PublicSite.Controllers
+namespace JamesQMurphy.PublicSite.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]

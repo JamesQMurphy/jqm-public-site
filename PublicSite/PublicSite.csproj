@@ -6,7 +6,7 @@
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>false</IsPackable>
     <AssemblyName>PublicSite</AssemblyName>
-    <RootNamespace>PublicSite</RootNamespace>
+    <RootNamespace>JamesQMurphy.PublicSite</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
