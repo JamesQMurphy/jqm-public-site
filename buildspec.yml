@@ -4,7 +4,11 @@ phases:
   pre_build:
     commands:
       - echo Entered the pre_build phase...
+      - echo Current environment:
       - printenv
+      - echo Current branch:
+      - git symbolic-ref HEAD
+      - echo Performing npm install...
       - cd PublicSite
       - npm install
       - cd ..
