@@ -7,7 +7,7 @@ phases:
       - echo Current environment...
       - printenv
       - echo Find the branch that contains the commit
-      - git branch -a --contains $CODEBUILD_SOURCE_VERSION
+      - git branch -r --contains $CODEBUILD_SOURCE_VERSION
       - echo Performing npm install...
       - cd PublicSite
       - npm install
