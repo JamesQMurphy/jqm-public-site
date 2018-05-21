@@ -1,10 +1,16 @@
 version: 0.2
 
 phases:
+  pre_build:
+    commands:
+      - echo Entered the pre_build phase...
+      - cd PublicSite
+      - npm install
+      - cd ..
+      - dotnet restore
   build:
     commands:
       - echo Entered the build phase...
-      - npm install
       - dotnet build
   post_build:
     commands:
