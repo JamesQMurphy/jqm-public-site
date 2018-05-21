@@ -4,6 +4,7 @@ phases:
   pre_build:
     commands:
       - echo Entered the pre_build phase...
+      - printenv
       - cd PublicSite
       - npm install
       - cd ..
