@@ -157,8 +157,9 @@ Write-Output "$($builds.count) builds found"
 $buildNumbers = @($builds | Select-Object -ExpandProperty buildnumber)
  
 # To determine the fourth number, we need to look for builds whose number matches the first three numbers
-Write-Output "Looking for latest build number that matches the pattern: $branchName*"
-$latestSemVer = @($buildNumbers) | Where-Object {$_ -like "$branchName*"} | ConvertTo-SemVer1 | Where-Object {($_.major -lt 10000000) -and ($_.beta -eq $beta) } | Sort-Object sortkey -Descending | Select-Object -First 1
+$pattern = "*$branchName*"
+Write-Output "Looking for latest build number that matches the pattern: $pattern"
+$latestSemVer = @($buildNumbers) | Where-Object {$_ -like $pattern} | ConvertTo-SemVer1 | Where-Object {($_.major -lt 10000000) -and ($_.beta -eq $beta) } | Sort-Object sortkey -Descending | Select-Object -First 1
 if ($latestSemVer -ne $null) {
     Write-Output "Found build number: $($latestSemVer.original)"
 	$newBuildNumber = "$branchName.$($latestSemVer.Build + 1)"
