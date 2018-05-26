@@ -5,6 +5,11 @@ VisualStudioVersion = 15.0.27428.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicSite", "PublicSite\PublicSite.csproj", "{9DECB62C-D41A-4810-BA9F-BA2BFD04F4CD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{0EF1195B-DFB3-4103-B539-FF7BFFED8EAA}"
+	ProjectSection(SolutionItems) = preProject
+		build\vsts-SetBuildNumber.ps1 = build\vsts-SetBuildNumber.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
