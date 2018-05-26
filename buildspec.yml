@@ -1,0 +1,23 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Entered the pre_build phase...
+      - echo Current environment...
+      - printenv
+      - echo Performing npm install...
+      - cd PublicSite
+      - npm install
+      - cd ..
+      - echo Restore NuGet packages...
+      - dotnet restore
+  build:
+    commands:
+      - echo Entered the build phase...
+      - dotnet build --configuration Release
+  post_build:
+    commands:
+      - echo Entered the post_build phase...
+      - echo Build completed on `date`
+ 
