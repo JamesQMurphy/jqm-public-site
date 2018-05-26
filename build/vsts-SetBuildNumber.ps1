@@ -154,6 +154,7 @@ filter ConvertTo-SemVer1 {
 # Get the previous builds for this build definition
 $builds = Invoke-TfsWebApi '/_apis/build/builds' -Version '2.0' -QueryString "`$top=200&definitions=$($env:SYSTEM_DEFINITIONID)" | Select-Object -ExpandProperty Value
 Write-Output "$($builds.count) builds found"
+$builds
 $buildNumbers = @($builds | Select-Object -ExpandProperty buildnumber)
  
 # To determine the fourth number, we need to look for builds whose number matches the first three numbers
