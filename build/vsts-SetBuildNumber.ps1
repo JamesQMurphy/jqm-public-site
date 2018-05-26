@@ -154,9 +154,9 @@ filter ConvertTo-SemVer1 {
 # Get the previous builds for this build definition
 $builds = Invoke-TfsWebApi '/_apis/build/builds' -Version '2.0' -QueryString "`$top=200&definitions=$($env:SYSTEM_DEFINITIONID)" | Select-Object -ExpandProperty Value
 Write-Output "$($builds.count) builds found"
-$builds
 $buildNumbers = @($builds | Select-Object -ExpandProperty buildnumber)
- 
+$buildNumbers
+
 # To determine the fourth number, we need to look for builds whose number matches the first three numbers
 $pattern = "*$branchName*"
 Write-Output "Looking for latest build number that matches the pattern: $pattern"
@@ -166,7 +166,7 @@ if ($latestSemVer -ne $null) {
 	$newBuildNumber = "$branchName.$($latestSemVer.Build + 1)"
 }
 else {
-    Write-Output "No build number found that matches the pattern: $branchName*"
+    Write-Output "No build number found that matches the pattern: $pattern"
 	$newBuildNumber = $branchName
 }
 
