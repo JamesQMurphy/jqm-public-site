@@ -162,6 +162,7 @@ $latestSemVer = @($buildNumbers) | Where-Object {$_ -like "$branchName*"} | Conv
 if ($latestSemVer -ne $null) {
     Write-Output "Found build number: $($latestSemVer.original)"
 	$newBuildNumber = "$branchName.$($latestSemVer.Build + 1)"
+}
 else {
     Write-Output "No build number found that matches the pattern: $branchName*"
 	$newBuildNumber = $branchName
