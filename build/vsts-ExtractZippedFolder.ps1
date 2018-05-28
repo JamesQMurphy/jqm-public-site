@@ -1,13 +1,6 @@
-param (
-	[ValidateNotNullOrEmpty()]
-	[string] $PathToZip,
-
-	[ValidateNotNullOrEmpty()]
-	[string] $Folder,
-
-	[ValidateNotNullOrEmpty()]
-	[string] $DestinationPath
-)
+$PathToZip = "$($env:BUILD_ARTIFACTSTAGINGDIRECTORY)\PublicSite.zip"
+$folder = 'wwwroot'
+$DestinationPath = $env:BUILD_ARTIFACTSTAGINGDIRECTORY
 
 Add-Type -Assembly System.IO.Compression.FileSystem
 $zip = [System.IO.Compression.ZipFile]::OpenRead($PathToZip)
