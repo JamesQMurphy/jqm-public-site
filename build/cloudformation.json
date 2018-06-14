@@ -12,7 +12,7 @@
                 "FunctionName" : "lambdaFromCloudformation",
                 "Handler" : "PublicSite::JamesQMurphy.PublicSite.LambdaEntryPoint::FunctionHandlerAsync",
                 "MemorySize" : 128,
-                "Role" : "arn:aws:iam::151144640842:role/JqmPublicSiteLambdaExecution",
+                "Role" : { "Fn::Join" : ["", ["arn:aws:iam::", {"Ref": "AWS::AccountId"}, ":role/JqmPublicSiteLambdaExecution"]]},
                 "Runtime" : "dotnetcore2.0",
                 "Timeout" : 10,
                 "Tags" : [ 
