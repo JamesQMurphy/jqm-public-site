@@ -1,0 +1,84 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Resources": {
+        "TheLambdaFunction" : {
+            "Type" : "AWS::Lambda::Function",
+            "Properties" : {
+                "Code" : {
+                    "S3Bucket":"prod-jqmpublicsite",
+                    "S3Key":"0.0.2.7/PublicSite.zip"
+                },
+                "Description" : "Description goes here",
+                "FunctionName" : "lambdaFromCloudformation",
+                "Handler" : "PublicSite::JamesQMurphy.PublicSite.LambdaEntryPoint::FunctionHandlerAsync",
+                "MemorySize" : 128,
+                "Role" : "arn:aws:iam::151144640842:role/JqmPublicSiteLambdaExecution",
+                "Runtime" : "dotnetcore2.0",
+                "Timeout" : 10,
+                "Tags" : [ 
+                    {
+                        "Key": "app",
+                        "Value": "JqmPublicSite"
+                    }
+                ]
+            }
+        },
+
+        "TheGatewayRestAPI" : {
+            "Type": "AWS::ApiGateway::RestApi",
+            "Properties" : {
+                "Name": "apiFromCloudformation",
+                "Description": "Description goes here",
+                "Policy": {
+                    "Version": "2012-10-17",
+                    "Statement": [{
+                        "Effect": "Allow",
+                        "Principal": {
+                            "Service": "apigateway.amazonaws.com"
+                        },                    
+                        "Action": ["sts::AssumeRole"]
+                    }]
+                }
+            }
+        },
+
+        "TheRootAnyMethod" : {
+            "Type" : "AWS::ApiGateway::Method",
+            "Properties" : {
+              "AuthorizationType" : "NONE",
+              "HttpMethod" : "ANY",
+              "Integration": {
+                "Type": "AWS_PROXY",
+                "IntegrationHttpMethod": "POST",
+                "Uri": {"Fn::Join" : ["", ["arn:aws:apigateway:", {"Ref": "AWS::Region"}, ":lambda:path/2015-03-31/functions/", {"Fn::GetAtt": ["TheLambdaFunction", "Arn"]}, "/invocations"]]}
+              },
+              "ResourceId" : { "Fn::GetAtt": ["TheGatewayRestAPI", "RootResourceId"] },
+              "RestApiId" : { "Ref": "TheGatewayRestAPI" }
+            }            
+        },
+            
+        "TheProxyResource": {
+            "Type": "AWS::ApiGateway::Resource",
+            "Properties": {
+              "RestApiId": { "Ref":"TheGatewayRestAPI"},
+              "ParentId": { "Fn::GetAtt" : ["TheGatewayRestAPI", "RootResourceId"] },
+              "PathPart": "{proxy+}"
+            }
+        },
+
+        "TheProxyAnyMethod": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "RestApiId": {"Ref":"TheGatewayRestAPI"},
+              "ResourceId": {"Ref":"TheProxyResource"},
+              "HttpMethod": "ANY",
+              "AuthorizationType": "NONE",
+              "Integration": {
+                "Type": "AWS_PROXY",
+                "IntegrationHttpMethod": "POST",
+                "Uri": {"Fn::Join" : ["", ["arn:aws:apigateway:", {"Ref": "AWS::Region"}, ":lambda:path/2015-03-31/functions/", {"Fn::GetAtt": ["TheLambdaFunction", "Arn"]}, "/invocations"]]}
+               }   
+            }
+        }
+    }
+}
