@@ -29,6 +29,7 @@
             "Properties" : {
                 "Name": "apiFromCloudformation",
                 "Description": "Description goes here",
+                "EndpointConfiguration": { "Types" : ["REGIONAL"] },
                 "Policy": {
                     "Version": "2012-10-17",
                     "Statement": [{
