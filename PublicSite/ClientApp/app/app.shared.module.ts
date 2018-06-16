@@ -8,6 +8,7 @@ import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
 import { ResumeComponent } from './components/resume/resume.component';
+import { BlogArticleListComponent } from './components/blogarticlelist/blogarticlelist.component';
 import { VehicleListComponent } from './components/vehiclelist/vehiclelist.component';
 
 @NgModule({
@@ -16,6 +17,7 @@ import { VehicleListComponent } from './components/vehiclelist/vehiclelist.compo
         NavMenuComponent,
         HomeComponent,
         ResumeComponent,
+        BlogArticleListComponent,
         VehicleListComponent
     ],
     imports: [
@@ -26,6 +28,7 @@ import { VehicleListComponent } from './components/vehiclelist/vehiclelist.compo
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
             { path: 'resume', component: ResumeComponent },
+            { path: 'blog', component: BlogArticleListComponent },
             { path: 'vehicles', component: VehicleListComponent },
             { path: '**', redirectTo: 'home' }
         ])
