@@ -17,7 +17,7 @@ export class BlogArticleListComponent {
 
 interface blogarticle {
     title: string;
-    publishdate: Date;
+    publishDate: Date;
     slug: string;
     content: string;
 }
