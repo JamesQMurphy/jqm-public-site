@@ -1,0 +1,18 @@
+<p *ngIf="!blogarticles"><em>Loading...</em></p>
+
+<table class='table' *ngIf="blogarticles">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Publish Date</th>
+            <th>Content</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let blogarticle of blogarticles">
+            <td>{{ blogarticle.title }}</td>
+            <td>{{ blogarticle.publishDate | date:'medium' }}</td>
+            <td>{{ blogarticle.content }}</td>
+        </tr>
+    </tbody>
+</table>
