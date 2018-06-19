@@ -39,9 +39,10 @@
                 "FunctionName" : {"Fn::Join": ["-",[
                     "JqmPublicSite",
                     { "Fn::Select" : [ "0", { "Fn::Split" : [ "." , {"Ref": "VersionNumberParameter"} ] }] },
-                    { "Fn::Select" : [ "1", { "Fn::Split" : [ "." , {"Ref": "VersionNumberParameter"} ] }] },
-                    { "Fn::Select" : [ "2", { "Fn::Split" : [ "." , {"Ref": "VersionNumberParameter"} ] }] },
-                    { "Fn::Select" : [ "3", { "Fn::Split" : [ "." , {"Ref": "VersionNumberParameter"} ] }] }
+                    { "Fn::Select" : [ "1", { "Fn::Split" : [ "." , { "Fn::Join": ["", [{"Ref": "VersionNumberParameter"},"."]]} ] }] },
+                    { "Fn::Select" : [ "2", { "Fn::Split" : [ "." , { "Fn::Join": ["", [{"Ref": "VersionNumberParameter"},".."]]} ] }] },
+                    { "Fn::Select" : [ "3", { "Fn::Split" : [ "." , { "Fn::Join": ["", [{"Ref": "VersionNumberParameter"},"..."]]} ] }] },
+                    { "Fn::Select" : [ "4", { "Fn::Split" : [ "." , { "Fn::Join": ["", [{"Ref": "VersionNumberParameter"},"...."]]} ] }] }
                 ]] },
                 "Handler" : "PublicSite::JamesQMurphy.PublicSite.LambdaEntryPoint::FunctionHandlerAsync",
                 "MemorySize" : 128,
