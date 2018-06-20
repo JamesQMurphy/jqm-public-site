@@ -13,6 +13,10 @@
         "ArtifactParameter":{
             "Type": "String",
             "Default": "PublicSite.zip"
+        },
+        "StageParameter":{
+            "Type": "String",
+            "Default": "demo"
         }
     },
 
@@ -120,13 +124,13 @@
             }
         },
 
-        "TheDemoDeploymentStage": {
+        "TheDeploymentStage": {
             "Type" : "AWS::ApiGateway::Deployment",
             "DependsOn": ["TheRootAnyMethod","TheProxyAnyMethod"],
             "Properties" : {
               "Description" : "Description of deployment",
-              "RestApiId" : {"Ref":"TheGatewayRestAPI"},
-              "StageName" : "demo"
+              "RestApiId" : {"Ref": "TheGatewayRestAPI"},
+              "StageName" : {"Ref": "StageParameter"}
             }
         }
             
@@ -135,7 +139,7 @@
     "Outputs": {
         "TheUrl": {
             "Description": "The Url to the stage",
-            "Value": {"Fn::Join" : ["", ["https://", {"Ref":"TheGatewayRestAPI"}, ".execute-api.", {"Ref": "AWS::Region"}, ".", {"Ref": "AWS::URLSuffix"}, "/", "demo"]]}
+            "Value": {"Fn::Join" : ["", ["https://", {"Ref":"TheGatewayRestAPI"}, ".execute-api.", {"Ref": "AWS::Region"}, ".", {"Ref": "AWS::URLSuffix"}, "/", {"Ref": "StageParameter"}]]}
         }
     }
 }
