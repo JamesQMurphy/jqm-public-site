@@ -6,10 +6,6 @@
             "Type": "String",
             "Description": "Build/version number"
         },
-        "EnvironmentParameter":{
-            "Type": "String",
-            "AllowedValues": ["","Demo","Production"]
-        },
         "ArtifactParameter":{
             "Type": "String",
             "Default": "PublicSite.zip"
@@ -17,18 +13,19 @@
         "StageParameter":{
             "Type": "String",
             "Default": "demo"
+        },
+        "CustomDomainParameter":{
+            "Type": "String",
+            "Default": ""
+        },
+        "CertificateArnParameter":{
+            "Type": "String",
+            "Default": ""
         }
     },
 
-    "Mappings": {
-        "EnvironmentMap" : {
-            "Demo" : {
-                "Subdomain" : "demo"
-            },
-            "Production" : {
-                "Subdomain" : "www"
-            }
-        }
+    "Conditions": {
+        "CreateCustomDomain": {"Fn::Not": [{"Fn::Equals": [{"Ref": "CustomDomainParameter"}, ""]}]} 
     },
 
     "Resources": {
@@ -42,11 +39,15 @@
                 "Description" : {"Fn::Join": ["",["Lambda that hosts ASP.NET core app for JqmPublicSite v",{"Ref": "VersionNumberParameter"}]] },
                 "FunctionName" : {"Fn::Join": ["-",[
                     "JqmPublicSite",
+                    { "Fn::Select" : [ "0", { "Fn::Split" : [ "." , { "Fn::Join": ["", [{"Ref": "CustomDomainParameter"},"."]]} ] }] },
+                    { "Fn::Select" : [ "1", { "Fn::Split" : [ "." , { "Fn::Join": ["", [{"Ref": "CustomDomainParameter"},"."]]} ] }] },
+
                     { "Fn::Select" : [ "0", { "Fn::Split" : [ "." , {"Ref": "VersionNumberParameter"} ] }] },
                     { "Fn::Select" : [ "1", { "Fn::Split" : [ "." , { "Fn::Join": ["", [{"Ref": "VersionNumberParameter"},"."]]} ] }] },
                     { "Fn::Select" : [ "2", { "Fn::Split" : [ "." , { "Fn::Join": ["", [{"Ref": "VersionNumberParameter"},".."]]} ] }] },
                     { "Fn::Select" : [ "3", { "Fn::Split" : [ "." , { "Fn::Join": ["", [{"Ref": "VersionNumberParameter"},"..."]]} ] }] },
                     { "Fn::Select" : [ "4", { "Fn::Split" : [ "." , { "Fn::Join": ["", [{"Ref": "VersionNumberParameter"},"...."]]} ] }] }
+
                 ]] },
                 "Handler" : "PublicSite::JamesQMurphy.PublicSite.LambdaEntryPoint::FunctionHandlerAsync",
                 "MemorySize" : 128,
@@ -132,12 +133,32 @@
               "RestApiId" : {"Ref": "TheGatewayRestAPI"},
               "StageName" : {"Ref": "StageParameter"}
             }
+        },
+
+        "TheCustomDomainName": {
+            "Type": "AWS::ApiGateway::DomainName",
+            "Condition": "CreateCustomDomain",
+            "Properties": {
+                "DomainName": {"Ref": "CustomDomainParameter"},
+                "RegionalCertificateArn": {"Ref": "CertificateArnParameter"},
+                "EndpointConfiguration": { "Types" : ["REGIONAL"] }
+            }
+        },
+
+        "TheBasePathMapping": {
+            "Type" : "AWS::ApiGateway::BasePathMapping",
+            "Condition": "CreateCustomDomain",
+            "DependsOn": ["TheDeploymentStage"],
+            "Properties" : {
+              "DomainName" : {"Ref": "TheCustomDomainName"},
+              "RestApiId" : {"Ref": "TheGatewayRestAPI"},
+              "Stage" : {"Ref": "StageParameter"}
+            }
         }
-            
     },
 
     "Outputs": {
-        "TheUrl": {
+        "stageUrl": {
             "Description": "The Url to the stage",
             "Value": {"Fn::Join" : ["", ["https://", {"Ref":"TheGatewayRestAPI"}, ".execute-api.", {"Ref": "AWS::Region"}, ".", {"Ref": "AWS::URLSuffix"}, "/", {"Ref": "StageParameter"}]]}
         }
