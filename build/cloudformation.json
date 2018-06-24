@@ -12,7 +12,7 @@
         },
         "StageParameter":{
             "Type": "String",
-            "Default": "demo"
+            "Default": "test"
         },
         "CustomDomainParameter":{
             "Type": "String",
@@ -70,8 +70,8 @@
         "TheGatewayRestAPI" : {
             "Type": "AWS::ApiGateway::RestApi",
             "Properties" : {
-                "Name":  {"Fn::Join": ["-",["JqmPublicSite",{"Ref": "VersionNumberParameter"}]] },
-                "Description": {"Fn::Join": ["",["API that call Lambda function JqmPublicSite v",{"Ref": "VersionNumberParameter"}]] },
+                "Name":  {"Fn::Join": ["-",["JqmPublicSite",{"Ref": "StageParameter"}]] },
+                "Description": {"Fn::Join": ["",["API that calls Lambda function JqmPublicSite v",{"Ref": "VersionNumberParameter"}]] },
                 "EndpointConfiguration": { "Types" : ["REGIONAL"] }
             }
         },
