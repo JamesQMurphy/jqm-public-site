@@ -117,7 +117,7 @@
 
         "TheDeploymentStage": {
             "Type" : "AWS::ApiGateway::Deployment",
-            "DependsOn": ["TheRootAnyMethod","TheProxyAnyMethod","TheLambdaInvokePermissionForProxyResource"],
+            "DependsOn": ["TheRootAnyMethod","TheProxyAnyMethod"],
             "Properties" : {
               "Description" : "Description of deployment",
               "RestApiId" : {"Ref": "TheGatewayRestAPI"},
