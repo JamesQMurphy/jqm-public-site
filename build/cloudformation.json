@@ -117,7 +117,7 @@
 
         "TheDeploymentStage": {
             "Type" : "AWS::ApiGateway::Deployment",
-            "DependsOn": ["TheRootAnyMethod","TheProxyAnyMethod"],
+            "DependsOn": ["TheRootAnyMethod","TheProxyAnyMethod","TheLambdaInvokePermissionForProxyResource"],
             "Properties" : {
               "Description" : "Description of deployment",
               "RestApiId" : {"Ref": "TheGatewayRestAPI"},
@@ -148,7 +148,6 @@
 
         "TheLambdaInvokePermissionForProxyResource": {
             "Type": "AWS::Lambda::Permission",
-            "DependsOn": ["TheDeploymentStage"],
             "Properties": {
                 "FunctionName": {"Fn::GetAtt": ["TheLambdaFunction", "Arn"]},
                 "Action": "lambda:InvokeFunction",
