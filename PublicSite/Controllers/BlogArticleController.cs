@@ -17,21 +17,27 @@ namespace PublicSite.Controllers
         {
             new BlogArticle()
             {
-                Title = "Hello, Blog!",
+                Title = "One DevOps, please!",
                 PublishDate = new DateTime(2018, 6, 10, 8, 30, 0),
-                Slug = "hello-blog",
-                Content = "Hello, and welcome to my blog!"
+                Slug = "one-devops-please"
             },
 
             new BlogArticle()
             {
-                Title = "Welcome back!",
-                PublishDate = new DateTime(2018, 6, 11, 13, 15, 0),
-                Slug = "welcome-back",
-                Content = "Welcome back!  This is my second entry."
+                Title = "Summer Project",
+                PublishDate = new DateTime(2018, 6, 27, 13, 15, 0),
+                Slug = "summer-project"
             },
 
         };
+
+        public BlogArticleController()
+        {
+            foreach(var blogArticle in _blogArticles)
+            {
+                blogArticle.Content = System.IO.File.ReadAllText($".\\blogArticles\\{blogArticle.Slug}.md");
+            }
+        }
 
         [HttpGet()]
         public IEnumerable<BlogArticle> GetAll()
