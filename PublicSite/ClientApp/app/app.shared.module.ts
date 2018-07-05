@@ -9,11 +9,13 @@ import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
 import { ResumeComponent } from './components/resume/resume.component';
 import { BlogArticleListComponent } from './components/blogarticlelist/blogarticlelist.component';
+import { environment } from './environments/environment';
+
 
 const appRoutes: Routes = [
-    { path: 'home', component: HomeComponent, data: { title: 'One DevOps, please!' } },
-    { path: 'resume', component: ResumeComponent, data: { title: 'Resume - One DevOps, please!' }  },
-    { path: 'blog', component: BlogArticleListComponent, data: { title: 'Blog - One DevOps, please!' }  },
+    { path: 'home', component: HomeComponent, data: { title: environment.siteName } },
+    { path: 'resume', component: ResumeComponent, data: { title: `Resume - ${environment.siteName}` }  },
+    { path: 'blog', component: BlogArticleListComponent, data: { title: `Blog - ${environment.siteName}` }  },
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: '**', redirectTo: 'home' }
 ];
