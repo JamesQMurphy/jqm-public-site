@@ -29,6 +29,13 @@ namespace PublicSite.Controllers
                 Slug = "summer-project"
             },
 
+            new BlogArticle()
+            {
+                Title = "Technology Choices, Part I",
+                PublishDate = new DateTime(2018, 6, 28, 12, 0, 0),
+                Slug = "technology-choices-1"
+            },
+
         };
 
         public BlogArticleController()
