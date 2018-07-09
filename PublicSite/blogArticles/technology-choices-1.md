@@ -1,8 +1,12 @@
 In the previous post, I described my summer project.   But even before I settled the idea of a blog, I knew that I wanted to develop an ASP.NET Core application.  With cross-platform technologies all the rage, I knew I had to be proficient in at *least* one of them.  Learning a client-side responsive framework (Angular, in this case) was going to be challenging enough.  So I decided that for server-side code, I'd stick with what I'd know:  Good old C#.  Well... not really *old* C#... I wanted to get some practice with the newer language features, like [string interpolation](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/interpolated).  The point was, I knew C# much better than any of the alternatives (Python, JavaScript, Go, etc.), so the decision was pretty easy.  The app was going to be an ASP.NET Core application, using Angular for the front end.  But where to host it?
 
-# Urgent need for DevOps Engineer with Cloud Experience!
+# Clouds in my Future
 
-My inbox is littered with these kinds of e-mails (or at least it *would* be if I didn't filter out messages with "urgent need" in the subject).  Nevertheless, pick up any DevOps job requirement and you'll see a need for some sort of cloud platform... usually Amazon Web Services (AWS) or Microsoft's Azure platform.  I had played around with Azure in the past, so I knew I could go that route.  I didn't know that much about AWS, but I had started to dabble a little bit when I was writing a few applications (or *skills*, as they're known) for Amazon Alexa.  [Footnote:  Full disclosure:  My first Alexa Skill was actually implemented as an ASP.NET Web Service hosted in Azure.  Amazon makes it much easier to write Alexa skills using their Lambda engine, but it's totally doable implementing them as a straight Web API that Amazon calls in response to Alexa prompts.]  So I definitely curious to see how “the other half” lived in the AWS world.
+My inbox is littered with these kinds of e-mails:
+
+> Urgent need for DevOps Engineer with Cloud Experience!
+
+Well not really... I filter out messages with "urgent need" in the subject.  Nevertheless, pick up any DevOps job requirement and you'll see a need for some sort of cloud platform... usually Amazon Web Services (AWS) or Microsoft's Azure platform.  I had played around with Azure in the past, so I knew I could go that route.  I didn't know that much about AWS, but I had started to dabble a little bit when I was writing a few applications (or *skills*, as they're known) for Amazon Alexa.  [Footnote:  Full disclosure:  My first Alexa Skill was actually implemented as an ASP.NET Web Service hosted in Azure.  Amazon makes it much easier to write Alexa skills using their Lambda engine, but it's totally doable implementing them as a straight Web API that Amazon calls in response to Alexa prompts.]  So I definitely curious to see how “the other half” lived in the AWS world.
 
 # ASP.NET Core on the cheap
 
