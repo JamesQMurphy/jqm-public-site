@@ -23,7 +23,7 @@ So the list so far...
 
 # Source Control -- the obvious choice
 
-The next choice was an easy one: version control.  Since I am showing how this site is built, the source code needs to be easily available.  And that, of course, means [GitHub](https://www.github.com).  Besides being the obvious choice from that standpoint, there was another factor at play... continuous integration builds and deployments.  I'll discuss that in my next post.  But for now, the list stands as follows:
+The next choice was an easy one: version control.  Since I am showing how this site is built, the source code needs to be publicly available.  And that, of course, means [GitHub](https://www.github.com).  Besides being the obvious choice from that standpoint, there was another factor to consider... continuous integration builds and deployments.  I'll discuss that in my next post.  But for now, the list stands as follows:
 
  * ASP.NET Core 2.0
  * Angular
