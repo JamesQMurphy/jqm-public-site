@@ -175,6 +175,12 @@ if ($latestSemVer -ne $null) {
 else {
     Write-Output "No build number found that matches the pattern `"$pattern`" and has beta tag `"$betaTag`""
 	$newBuildNumber = $branchName
+    if ([String]::IsNullOrEmpty($betaTag)) {
+        $newBuildNumber = $branchName
+    }
+    else {
+        $newBuildNumber = "$branchName-$betaTag"
+    }
 }
 
 # Set the build number
