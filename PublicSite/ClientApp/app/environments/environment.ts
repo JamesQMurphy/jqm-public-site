@@ -1,3 +1,3 @@
 export const environment = {
-    siteName: 'One DevOps, please!'
+    siteName: 'Cold-Brewed DevOps'
 };
