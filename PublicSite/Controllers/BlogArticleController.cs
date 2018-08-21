@@ -42,7 +42,7 @@ namespace PublicSite.Controllers
         {
             foreach(var blogArticle in _blogArticles)
             {
-                blogArticle.Content = System.IO.File.ReadAllText($".\\blogArticles\\{blogArticle.Slug}.md");
+                blogArticle.Content = System.IO.File.ReadAllText($"./blogArticles/{blogArticle.Slug}.md");
             }
         }
 
