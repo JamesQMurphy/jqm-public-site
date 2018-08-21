@@ -7,6 +7,8 @@ if ($branchNameFull -notlike 'refs/heads/releases/*') {
 	exit
 }
 
+$betaTag = 'rc'
+
 function Invoke-TfsWebApi {
     param(
         [Parameter(Mandatory=$true)]
@@ -157,16 +159,28 @@ Write-Output "$($builds.count) builds found"
 $buildNumbers = @($builds | Select-Object -ExpandProperty buildnumber)
 
 # To determine the fourth number, we need to look for builds whose number matches the first three numbers
-$pattern = "*$branchName*"
-Write-Output "Looking for latest build number that matches the pattern: $pattern"
-$latestSemVer = @($buildNumbers) | Where-Object {$_ -like $pattern} | ConvertTo-SemVer1 | Sort-Object sortkey -Descending | Select-Object -First 1
-if ($latestSemVer -ne $null) {
-    Write-Output "Found build number: $($latestSemVer.original)"
-	$newBuildNumber = "$branchName.$($latestSemVer.Build + 1)"
+if ([String]::IsNullOrEmpty($betaTag)) {
+    $pattern = "*$branchName*"
 }
 else {
-    Write-Output "No build number found that matches the pattern: $pattern"
+    $pattern = "*$branchName-$betaTag*"
+}
+Write-Output "Looking for latest build number that matches the pattern `"$pattern`" and has beta tag `"$betaTag`""
+
+$latestSemVer = @($buildNumbers) | Where-Object {$_ -like $pattern} | ConvertTo-SemVer1 | Where-Object {$_.beta -eq $betaTag} | Sort-Object sortkey -Descending | Select-Object -First 1
+if ($latestSemVer -ne $null) {
+    Write-Output "Found build number: $($latestSemVer.original)"
+	$newBuildNumber = Format-SemVer1 -Major $latestSemVer.major -Minor $latestSemVer.minor -Patch $latestSemVer.patch -Build $($latestSemVer.Build + 1) -Beta $betaTag
+}
+else {
+    Write-Output "No build number found that matches the pattern `"$pattern`" and has beta tag `"$betaTag`""
 	$newBuildNumber = $branchName
+    if ([String]::IsNullOrEmpty($betaTag)) {
+        $newBuildNumber = $branchName
+    }
+    else {
+        $newBuildNumber = "$branchName-$betaTag"
+    }
 }
 
 # Set the build number
