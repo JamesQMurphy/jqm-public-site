@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicSite", "PublicSite\Pu
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{0EF1195B-DFB3-4103-B539-FF7BFFED8EAA}"
 	ProjectSection(SolutionItems) = preProject
+		build\cloudformation.json = build\cloudformation.json
 		build\vsts-SetBuildNumber.ps1 = build\vsts-SetBuildNumber.ps1
 	EndProjectSection
 EndProject
