@@ -12,7 +12,7 @@
         <tr *ngFor="let blogarticle of blogarticles">
             <td>{{ blogarticle.title }}</td>
             <td>{{ blogarticle.publishDate | date:'medium' }}</td>
-            <td>{{ blogarticle.content }}</td>
+            <td><div [innerHTML]="blogarticle.html"></div></td>
         </tr>
     </tbody>
 </table>
