@@ -20,4 +20,5 @@ interface blogarticle {
     publishDate: Date;
     slug: string;
     content: string;
+    html: string;
 }
